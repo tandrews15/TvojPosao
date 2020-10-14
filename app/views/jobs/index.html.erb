@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Jobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Expiration date</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td><%= job.name %></td>
+        <td><%= job.description %></td>
+        <td><%= job.category %></td>
+        <td><%= job.expiration_date %></td>
+        <td><%= job.user_id %></td>
+        <td><%= link_to 'Show', job %></td>
+        <td><%= link_to 'Edit', edit_job_path(job) %></td>
+        <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Job', new_job_path %>
+
+
+<% @jobs.each do |job| %>
+
+  <div class="card text-center">
+    <div class="card-header">
+      Expiration date: <%= job.expiration_date %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= job.name %></h5>
+      <p class="card-text"><%= job.description %></p>
+      <a href="#" class="btn btn-primary">Link_to Job application</a>
+    </div>
+    <div class="card-footer text-muted">
+      by <%= job.user.name %>
+    </div>
+  </div>
+
+<% end %>
