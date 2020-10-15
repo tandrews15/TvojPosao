@@ -7,9 +7,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-      <%if user_signed_in?%>
 
       <%= link_to 'Jobs', jobs_path, class: "nav-link nav-item"%>
+
+      <%if user_signed_in?%>
+
 
       <%#= link_to 'Ordered items', ordered_items_path, class: "nav-link nav-item"%>
 

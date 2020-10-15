@@ -5,6 +5,13 @@ class JobsController < ApplicationController
   # GET /jobs.json
   def index
     @jobs = Job.all
+
+
+    #search options on top of index page
+    #they filter throgh DB and return the filterd Jobs
+    #search box 1 job name
+    #search box 2 selection select by employer
+    #search box 3 selection by category 
   end
 
   # GET /jobs/1
@@ -15,6 +22,10 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = Job.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /jobs/1/edit
@@ -24,15 +35,19 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
+    if isEmployer?
     @job = Job.new(job_params)
-
-    respond_to do |format|
-      if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
-        format.json { render :show, status: :created, location: @job }
-      else
-        format.html { render :new }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
+      @job.user_id = current_user.id
+      respond_to do |format|
+        if @job.save
+          format.html { redirect_to @job, notice: 'Job was successfully created.' }
+          format.json { render :show, status: :created, location: @job }
+          format.js   { render :index, status: :created, location: @job }
+        else
+          format.html { render :new }
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+          format.js   { render json: @job.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -40,13 +55,15 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   def update
-    respond_to do |format|
-      if @job.update(job_params)
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
-        format.json { render :show, status: :ok, location: @job }
-      else
-        format.html { render :edit }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
+    if isEmployer?
+      respond_to do |format|
+        if @job.update(job_params)
+          format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+          format.json { render :show, status: :ok, location: @job }
+        else
+          format.html { render :edit }
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -54,14 +71,36 @@ class JobsController < ApplicationController
   # DELETE /jobs/1
   # DELETE /jobs/1.json
   def destroy
-    @job.destroy
-    respond_to do |format|
-      format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
-      format.json { head :no_content }
+    if isEmployer?
+          @job.destroy
+      respond_to do |format|
+        format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
+
+
   private
+
+
+  def isEmployer?
+    if user_signed_in? 
+      if current_user.employer
+        true
+      else 
+        flash[:alert] = "Unsufficient rights!"
+        redirect_to jobs_path
+        false
+      end
+    else
+      flash[:alert] = "You need to sign in first!"
+      redirect_to user_session_path
+      false
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_job
       @job = Job.find(params[:id])
@@ -69,6 +108,6 @@ class JobsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_params
-      params.require(:job).permit(:name, :description, :category, :expiration_date, :user_id)
+      params.require(:job).permit(:name, :description, :category, :expiration_date)
     end
 end
