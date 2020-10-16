@@ -7,45 +7,27 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-
       <%= link_to 'Jobs', jobs_path, class: "nav-link nav-item"%>
 
       <%if user_signed_in?%>
-
-
-      <%#= link_to 'Ordered items', ordered_items_path, class: "nav-link nav-item"%>
-
-      <%#= link_to 'Orders', orders_path, class: "nav-link nav-item"%>
-
-      <%#= link_to 'Categories', categories_path, class: "nav-link nav-item"%>
-
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%if current_user.employer%>
-          Employer:
-          <%end%>
-          <%=current_user.name%>
-        </a>
-
-
-
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-          <%= link_to 'Edit profile', edit_user_registration_path, class: "dropdown-item"%>
-
-          <div class="dropdown-divider"></div>
-
-          <%= link_to 'Logout', destroy_user_session_path, class: "dropdown-item", method: :delete%>
-
-        </div>
-      </li>
-
+        <%= link_to 'Job applications', job_aplications_path, class: "nav-link nav-item"%>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%if current_user.employer%>
+              Employer:
+            <%end%>
+              <%=current_user.name%>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to 'Edit profile', edit_user_registration_path, class: "dropdown-item"%>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Logout', destroy_user_session_path, class: "dropdown-item", method: :delete%>
+          </div>
+        </li>
       <%else%>
-      <li class="nav-item">
-        <%= link_to 'Login', new_user_session_path, class: "nav-link"%>
-      </li>
+        <li class="nav-item">
+          <%= link_to 'Login', new_user_session_path, class: "nav-link"%>
+        </li>
       <%end%>
 
   </div>

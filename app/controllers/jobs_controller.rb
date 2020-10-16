@@ -1,17 +1,11 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
+  respond_to :html, :json
   # GET /jobs
   # GET /jobs.json
   def index
     @jobs = Job.all
-
-
-    #search options on top of index page
-    #they filter throgh DB and return the filterd Jobs
-    #search box 1 job name
-    #search box 2 selection select by employer
-    #search box 3 selection by category 
   end
 
   # GET /jobs/1
@@ -25,7 +19,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
-    end
+    end 
   end
 
   # GET /jobs/1/edit

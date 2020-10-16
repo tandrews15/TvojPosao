@@ -15,6 +15,10 @@
 <%end%>
 
 
+<%= link_to 'Create a new job post', new_job_path, class: 'btn btn-outline-success my-2 my-sm-0', data: { modal: true } %>
+
+
+
 <% @jobs.order(:id).each do |job| %>
 
   <div class="card text-center">
@@ -40,13 +44,14 @@
       <p class="card-text"><%= job.description %></p>
 
       <% if job.expiration_date.future? %>
-        <a href="#" class="btn btn-warning">Link_to Job application</a>
+        <%= link_to 'Apply now', new_job_aplication_path, class:"btn btn-warning"%>
       <%end%>
 
 
       <%= link_to 'Show', job, class:"btn btn-success" %>
+
       <%if user_signed_in? && current_user.employer%>
-        <%= link_to 'Edit', edit_job_path(job), class:"btn btn-dark"%>
+        <%= link_to 'Edit', edit_job_path(job), class:"btn btn-dark", data: { modal: true }%>
         <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
       <% end %>
 
