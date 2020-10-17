@@ -2,14 +2,26 @@
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
-
+import "bootstrap";
+import "../stylesheets/application" 
+require("jquery")
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import "bootstrap";
-import "../stylesheets/application" 
+
+
+
+
+window.jQuery = $;           // Add this line
+window.$ = $;                // Add this line
+
+
+
+
+//console.log('Hello from application.js')
+//require("bootstrap-modal")
 
 document.addEventListener("turbolinks:load", () => {
   $('[data-toggle="tooltip"]').tooltip()

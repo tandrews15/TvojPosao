@@ -1,7 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
-
-  respond_to :html, :json
+  
   # GET /jobs
   # GET /jobs.json
   def index
@@ -11,38 +10,40 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.json
   def show
+
+    
   end
 
   # GET /jobs/new
   def new
     @job = Job.new
-    respond_to do |format|
-      format.html
-      format.js
-    end 
+    
   end
+
 
   # GET /jobs/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    #@job = Job.new
   end
+
 
   # POST /jobs
   # POST /jobs.json
   def create
     if isEmployer?
     @job = Job.new(job_params)
-      @job.user_id = current_user.id
-      respond_to do |format|
-        if @job.save
-          format.html { redirect_to @job, notice: 'Job was successfully created.' }
-          format.json { render :show, status: :created, location: @job }
-          format.js   { render :index, status: :created, location: @job }
-        else
-          format.html { render :new }
-          format.json { render json: @job.errors, status: :unprocessable_entity }
-          format.js   { render json: @job.errors, status: :unprocessable_entity }
-        end
-      end
+    @job.user_id = current_user.id
+      if @job.save
+        flash[:success] = "Your job post has been saved!"
+        redirect_to jobs_path
+      else
+        flash[:alert] = "Something went wrong! Your job post has not been saved."
+        redirect_to jobs_path
+      end   
     end
   end
 
@@ -52,10 +53,10 @@ class JobsController < ApplicationController
     if isEmployer?
       respond_to do |format|
         if @job.update(job_params)
-          format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+          format.html { redirect_to jobs_url, notice: 'Job was successfully updated.' }
           format.json { render :show, status: :ok, location: @job }
         else
-          format.html { render :edit }
+          format.html { redirect_to jobs_url }
           format.json { render json: @job.errors, status: :unprocessable_entity }
         end
       end
@@ -68,16 +69,14 @@ class JobsController < ApplicationController
     if isEmployer?
           @job.destroy
       respond_to do |format|
-        format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
+        format.html { redirect_to jobs_url, notice: 'Job post was successfully deleted.' }
         format.json { head :no_content }
       end
     end
   end
 
-
-
+  
   private
-
 
   def isEmployer?
     if user_signed_in? 

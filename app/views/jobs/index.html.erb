@@ -1,23 +1,22 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Jobs</h1>
+  <!-- NewJOB Modal -->
+    <div class="modal" id="newJobPost" tabindex="-1" role="dialog" aria-hidden="true" style="display: none"></div>
+  <!-- NewJOB Modal -->
 
+ <!-- EditJOB Modal -->
+  <div class="modal" id="editJobPost" tabindex="-1" role="dialog" aria-hidden="true" style="display: none"></div>
+ <!-- EditJOB Modal -->
+
+ <!-- ShowJOB Modal -->
+ <div class="modal" id="showJobPost" tabindex="-1" role="dialog" aria-hidden="true" style="display: none"></div>
+ <!-- ShowJOB Modal -->
 
 <%if user_signed_in? && current_user.employer%>
-  <%= link_to 'Create a new job post', new_job_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
-  <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <%= render partial: 'jobs/newjob' %>
-      </div>
-    </div>
-  </div>
+
+  <%= link_to "Create a new job post", new_job_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#newJobPost', class: 'btn btn-primary'}  %>
+
+
 <%end%>
-
-
-<%= link_to 'Create a new job post', new_job_path, class: 'btn btn-outline-success my-2 my-sm-0', data: { modal: true } %>
-
-
 
 <% @jobs.order(:id).each do |job| %>
 
@@ -32,10 +31,9 @@
         <%else%>
         <h5 class="text-danger">EXPIRED</h5>
         <%end%>
-
-
       </small>
     </div>
+
     <div class="card-body">
       <h3 class="card-title"><%= job.name%></h3>
 
@@ -44,14 +42,19 @@
       <p class="card-text"><%= job.description %></p>
 
       <% if job.expiration_date.future? %>
-        <%= link_to 'Apply now', new_job_aplication_path, class:"btn btn-warning"%>
+        <br>
+        <hr>
+        <%= link_to 'Apply now', new_job_aplication_path(:job_id => job.id), class:"btn btn-warning"%>
       <%end%>
 
+      <br>
+      <br>
 
-      <%= link_to 'Show', job, class:"btn btn-success" %>
-
+      <%= link_to "Show", job_path(job), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#showJobPost', class: 'btn btn-success'}  %>
       <%if user_signed_in? && current_user.employer%>
-        <%= link_to 'Edit', edit_job_path(job), class:"btn btn-dark", data: { modal: true }%>
+
+        <%= link_to "Edit", edit_job_path(job), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#editJobPost', class: 'btn btn-info'}  %>
+
         <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
       <% end %>
 

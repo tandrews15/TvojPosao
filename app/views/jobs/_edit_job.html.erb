@@ -1,0 +1,42 @@
+<!-- Modal -->
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+    <div class="modal-header">
+      <h5 class="modal-title" id="newJobPost">Edit job post</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <%#= form_for(Job.new, :remote => true, :multipart => true )  do |form| %>
+      <%= form_with(model: @job, local: true)  do |form| %>
+        <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :category %>
+          <%= form.text_field :category, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :expiration_date %>
+          <%= form.datetime_select :expiration_date, class: "form-control" %>
+        </div>
+
+        <div class="form-group modal-footer ">
+            <%= form.submit "Create", class: "btn btn-success" %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      
+      <%end%>
+    </div>
+      </div>
+    </div>

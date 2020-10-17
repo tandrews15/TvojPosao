@@ -11,42 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group">
+    <%= form.label :name%>
+    <%= form.text_field :name, value: current_user.name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :date_of_birth %>
-    <%= form.datetime_select :date_of_birth %>
+    <%= form.date_select :date_of_birth, class: "form-control", :start_year => Date.current.year, :end_year => 1900 %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, value: current_user.email, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :phone_num %>
-    <%= form.text_field :phone_num %>
+    <%= form.text_field :phone_num, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :adress %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :education %>
-    <%= form.text_field :education %>
+    <%= form.text_field :education, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :job_id %>
-    <%= form.text_field :job_id %>
+    <%= form.text_field :job_id, value: @job.name, class: "form-control" %>
   </div>
 
-  <div class="actions">
+  <div class="form-group">
     <%= form.submit %>
   </div>
 <% end %>
