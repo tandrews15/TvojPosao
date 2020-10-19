@@ -1,41 +1,39 @@
-<p id="notice"><%= notice %></p>
-          <% if @job_aplication.user_id == current_user.id %>
+<% if @job_aplication.user_id == current_user.id %>
+  <p>
+    <strong>Name:</strong>
+    <%= @job_aplication.name %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @job_aplication.name %>
-</p>
+  <p>
+    <strong>Date of birth:</strong>
+    <%= @job_aplication.date_of_birth %>
+  </p>
 
-<p>
-  <strong>Date of birth:</strong>
-  <%= @job_aplication.date_of_birth %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @job_aplication.email %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @job_aplication.email %>
-</p>
+  <p>
+    <strong>Phone num:</strong>
+    <%= @job_aplication.phone_num %>
+  </p>
 
-<p>
-  <strong>Phone num:</strong>
-  <%= @job_aplication.phone_num %>
-</p>
+  <p>
+    <strong>Adress:</strong>
+    <%= @job_aplication.address %>
+  </p>
 
-<p>
-  <strong>Adress:</strong>
-  <%= @job_aplication.address %>
-</p>
+  <p>
+    <strong>Education:</strong>
+    <%= @job_aplication.education %>
+  </p>
 
-<p>
-  <strong>Education:</strong>
-  <%= @job_aplication.education %>
-</p>
+  <p>
+    <strong>Job:</strong>
+    <%= @job_aplication.job_id %>
+  </p>
 
-<p>
-  <strong>Job:</strong>
-  <%= @job_aplication.job_id %>
-</p>
-
-<%= link_to 'Edit', edit_job_aplication_path(@job_aplication) %> |
-<%= link_to 'Back', job_aplications_path %>
+  <%= link_to 'Edit', edit_job_aplication_path(@job_aplication) %> |
+  <%= link_to 'Back', job_aplications_path %>
 <% end %>

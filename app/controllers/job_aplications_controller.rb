@@ -5,7 +5,6 @@ class JobAplicationsController < ApplicationController
 
   $education =  ["SSS", "VŠS", "VSS"]
 
-
   # GET /job_aplications
   # GET /job_aplications.json
   def index

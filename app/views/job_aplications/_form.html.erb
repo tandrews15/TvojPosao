@@ -42,9 +42,10 @@
     <%= form.select :education, $education, prompt:"Select your education", class: "form-control"%>
   </div>
 
-  <div class="form-group">
+    <div class="form-group">
     <%= form.label :job_id %>
-    <%= form.text_field :job_id%>
+    <br>
+    <%= form.collection_select :job_id, Job.all, :id, :name, promt: true, class: "form-control"%>
   </div>
   
   <div class="form-group">
