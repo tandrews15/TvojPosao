@@ -38,14 +38,15 @@
 
   <div class="form-group">
     <%= form.label :education %>
-    <%= form.text_field :education, class: "form-control" %>
+    <br>
+    <%= form.select :education, $education, prompt:"Select your education", class: "form-control"%>
   </div>
 
   <div class="form-group">
     <%= form.label :job_id %>
-    <%= form.text_field :job_id, value: @job.name, class: "form-control" %>
+    <%= form.text_field :job_id%>
   </div>
-
+  
   <div class="form-group">
     <%= form.submit %>
   </div>

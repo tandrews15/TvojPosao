@@ -10,40 +10,38 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.json
   def show
-
-    
   end
 
   # GET /jobs/new
   def new
-    @job = Job.new
-    
+    if isEmployer?
+      @job = Job.new
+    end
   end
 
 
   # GET /jobs/1/edit
   def edit
-    respond_to do |format|
-      format.html
-      format.js
+    if isEmployer?
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
-    #@job = Job.new
   end
 
 
   # POST /jobs
   # POST /jobs.json
   def create
-    if isEmployer?
     @job = Job.new(job_params)
     @job.user_id = current_user.id
-      if @job.save
-        flash[:success] = "Your job post has been saved!"
-        redirect_to jobs_path
-      else
-        flash[:alert] = "Something went wrong! Your job post has not been saved."
-        redirect_to jobs_path
-      end   
+    if @job.save
+      flash[:success] = "Your job post has been saved!"
+      redirect_to jobs_path
+    else
+      flash[:alert] = "Something went wrong! Your job post has not been saved."
+      redirect_to jobs_path
     end
   end
 
@@ -51,14 +49,19 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1.json
   def update
     if isEmployer?
-      respond_to do |format|
-        if @job.update(job_params)
-          format.html { redirect_to jobs_url, notice: 'Job was successfully updated.' }
-          format.json { render :show, status: :ok, location: @job }
-        else
-          format.html { redirect_to jobs_url }
-          format.json { render json: @job.errors, status: :unprocessable_entity }
+      if @job.user_id == current_user.id
+        respond_to do |format|
+          if @job.update(job_params)
+            format.html { redirect_to jobs_url, notice: 'Job was successfully updated.' }
+            format.json { render :show, status: :ok, location: @job }
+          else
+            format.html { redirect_to jobs_url }
+            format.json { render json: @job.errors, status: :unprocessable_entity }
+          end
         end
+      else 
+        flash[:alert] = "You can only edit your post"
+        redirect_to jobs_path
       end
     end
   end
@@ -66,7 +69,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/1
   # DELETE /jobs/1.json
   def destroy
-    if isEmployer?
+    if isEmployer? && @job.user_id == current_user.id
           @job.destroy
       respond_to do |format|
         format.html { redirect_to jobs_url, notice: 'Job post was successfully deleted.' }

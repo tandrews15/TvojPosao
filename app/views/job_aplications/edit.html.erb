@@ -1,6 +1,8 @@
 <h1>Editing Job Aplication</h1>
+<% if @job_aplication.user_id == current_user.id %>
 
-<%= render 'form', job_aplication: @job_aplication %>
+    <%= render 'form', job_aplication: @job_aplication %>
 
-<%= link_to 'Show', @job_aplication %> |
-<%= link_to 'Back', job_aplications_path %>
+    <%= link_to 'Show', @job_aplication %> |
+    <%= link_to 'Back', job_aplications_path %>
+<% end %>

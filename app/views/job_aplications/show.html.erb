@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+          <% if @job_aplication.user_id == current_user.id %>
 
 <p>
   <strong>Name:</strong>
@@ -37,3 +38,4 @@
 
 <%= link_to 'Edit', edit_job_aplication_path(@job_aplication) %> |
 <%= link_to 'Back', job_aplications_path %>
+<% end %>

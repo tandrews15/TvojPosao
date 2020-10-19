@@ -1,10 +1,16 @@
 class JobAplicationsController < ApplicationController
   before_action :set_job_aplication, only: [:show, :edit, :update, :destroy]
 
+  before_action :authenticate_user!
+
+  $education =  ["SSS", "VŠS", "VSS"]
+
+
   # GET /job_aplications
   # GET /job_aplications.json
   def index
     @job_aplications = JobAplication.all
+    @jobs = Job.all
   end
 
   # GET /job_aplications/1
@@ -15,9 +21,20 @@ class JobAplicationsController < ApplicationController
   # GET /job_aplications/new
   def new
     @job_aplication = JobAplication.new
-    @job = Job.find(params[:job_id])
 
+    if params[:job_id].nil?
+      flash[:alert] = "From where did you come from?!"
+      redirect_to jobs_path
+    else
+      if user_signed_in?
+        @job = Job.find(params[:job_id])
+      else
+        flash[:alert] = "Please sign in first"
+        redirect_to user_session_path
+      end
+    end
   end
+
 
   # GET /job_aplications/1/edit
   def edit
@@ -30,14 +47,15 @@ class JobAplicationsController < ApplicationController
 
     respond_to do |format|
       if @job_aplication.save
-        format.html { redirect_to @job_aplication, notice: 'Job aplication was successfully created.' }
-        format.json { render :show, status: :created, location: @job_aplication }
+        format.html { redirect_to jobs_path, notice: 'Job aplication was successfully created.' }
+        format.json { redirect_to jobs_path, status: :created, location: @job_aplication }
       else
         format.html { render :new }
         format.json { render json: @job_aplication.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   # PATCH/PUT /job_aplications/1
   # PATCH/PUT /job_aplications/1.json

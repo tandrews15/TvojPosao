@@ -10,18 +10,8 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-
-
-
-
-window.jQuery = $;           // Add this line
-window.$ = $;                // Add this line
-
-
-
-
-//console.log('Hello from application.js')
-//require("bootstrap-modal")
+window.jQuery = $;           // Bootstrap modals js.erb
+window.$ = $;                // Bootstrap modals js.erb
 
 document.addEventListener("turbolinks:load", () => {
   $('[data-toggle="tooltip"]').tooltip()

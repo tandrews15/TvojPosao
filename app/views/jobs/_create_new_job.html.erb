@@ -9,7 +9,8 @@
     </div>
     <div class="modal-body">
 
-    <%= form_for(Job.new, :remote => true, :multipart => true )  do |form| %>
+    <%= form_for(Job.new, remote: true, multipart: true )  do |form| %>
+    <%#= form_for(Job.new )  do |form| %>
     <%#= form_with(model: @job, local: true)  do |form| %>
         <div class="form-group">
           <%= form.label :name %>
