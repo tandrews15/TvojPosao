@@ -50,7 +50,7 @@ class JobAplicationsController < ApplicationController
         format.html { redirect_to jobs_path, notice: 'Job aplication was successfully created.' }
         format.json { redirect_to jobs_path, status: :created, location: @job_aplication }
       else
-        format.html { render :new }
+        format.html { render :new} #problems here
         format.json { render json: @job_aplication.errors, status: :unprocessable_entity }
       end
     end
@@ -89,6 +89,6 @@ class JobAplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_aplication_params
-      params.require(:job_aplication).permit(:name, :date_of_birth, :email, :phone_num, :address, :education, :job_id)
+      params.require(:job_aplication).permit(:name, :date_of_birth, :email, :phone_num, :address, :education, :job_id, :user_id)
     end
 end
