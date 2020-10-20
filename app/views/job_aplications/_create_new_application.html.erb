@@ -65,13 +65,14 @@
         <%= form.select :education, $education, prompt:"Select your education", class: "form-control"%>
       </div>
 
-
-      <p>File upload:</p>
-      <p>Sending hidden param job_id: <%=j.id%></p>
+      <div class="form-group">
+        <%= form.label :attachment %>
+        <br> 
+        <%= form.file_field :attachment %>   
+      </div>
 
       <%= form.hidden_field :job_id, value: j.id%>
       <%= form.hidden_field :user_id, value: current_user.id%>
-
       
       <div class="form-group modal-footer">
         <%= form.submit "Apply", class: "btn btn-success" %>

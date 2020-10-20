@@ -12,4 +12,8 @@ class JobAplication < ApplicationRecord
 
 
   validates_uniqueness_of :job_id, scope: [:user_id]
+
+
+  mount_uploader :attachment, AttachmentUploader # Tells rails to use this uploader for this model.  
+
 end
