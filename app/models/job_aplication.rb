@@ -9,4 +9,7 @@ class JobAplication < ApplicationRecord
                     format: { with: Devise.email_regexp }
 
   validates :email, :date_of_birth, :email, :address, :education, :job_id, presence: true
+
+
+  validates_uniqueness_of :job_id, scope: [:user_id]
 end
